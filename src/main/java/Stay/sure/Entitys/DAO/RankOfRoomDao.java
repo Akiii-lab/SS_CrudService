@@ -89,12 +89,59 @@ public class RankOfRoomDao implements DaoBase<RankOfRoom> {
         return false;
     }
 
-    public RankOfRoom findByIds(Long id_room, Long id_checker, Long id_rank) {
+    public ArrayList<RankOfRoom> findByIds(Long id_room, Long id_checker, Long id_rank) {
         try {
-            ResultSet res = databaseConfig.executeQuery("SELECT * FROM ", tableName, " WHERE id_room = ? AND idChecker = ? AND id_rank = ?", new QueryParam("long", id_room), new QueryParam("long", id_checker), new QueryParam("long", id_rank));
+            ArrayList<RankOfRoom> data = new ArrayList<>();
+            ResultSet res = databaseConfig.executeQuery(
+                    "SELECT * FROM " + tableName + " WHERE id_room = ? AND idChecker = ? AND id_rank = ?",
+                    new QueryParam("long", id_room), new QueryParam("long", id_checker),
+                    new QueryParam("long", id_rank));
             if (res.next()) {
-                return getData(res);
+                data.add(getData(res));
             }
+            return data;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public ArrayList<RankOfRoom> findByIdRank(Long id_rank) {
+        try {
+            ArrayList<RankOfRoom> data = new ArrayList<>();
+            ResultSet res = new DaoUtils().getByLongColumn(databaseConfig, tableName, "id_rank", id_rank);
+            while (res.next()) {
+                data.add(getData(res));
+            }
+            return data;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public ArrayList<RankOfRoom> findByIdChecker(Long id_checker) {
+        try {
+            ArrayList<RankOfRoom> data = new ArrayList<>();
+            ResultSet res = new DaoUtils().getByLongColumn(databaseConfig, tableName, "idChecker", id_checker);
+            while (res.next()) {
+                data.add(getData(res));
+            }
+            return data;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public ArrayList<RankOfRoom> findByIdRoom(Long id_room) {
+        try {
+            ArrayList<RankOfRoom> data = new ArrayList<>();
+            ResultSet res = new DaoUtils().getByLongColumn(databaseConfig, tableName, "id_room", id_room);
+            while (res.next()) {
+                data.add(getData(res));
+            }
+            return data;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

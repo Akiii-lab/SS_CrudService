@@ -7,6 +7,7 @@ import Stay.sure.Entitys.Factories.StateTransitionsFactory;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -112,5 +113,46 @@ public class StateTransitionsDao implements DaoBase<StateTransitions> {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    public ArrayList<StateTransitions> findByIdState(Long id) {
+        try {
+            ArrayList<StateTransitions> data = new ArrayList<>();
+            ResultSet res = new DaoUtils().getByLongColumn(databaseConfig, tableName, "id_state", id);
+            while (res.next()) {
+                data.add(getData(res));
+            }
+            return data;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public ArrayList<StateTransitions> findByIdStockpile(Long id) {
+        try {
+            ArrayList<StateTransitions> data = new ArrayList<>();
+            ResultSet res = new DaoUtils().getByLongColumn(databaseConfig, tableName, "id_stockpile", id);
+            while (res.next()) {
+                data.add(getData(res));
+            }
+            return data;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public ArrayList<StateTransitions> findByDate(Date date) {
+        ArrayList<StateTransitions> rooms = new ArrayList<StateTransitions>();
+        try {
+            ResultSet res = new DaoUtils().getByDateColumn(databaseConfig, tableName, "date_transition", date);
+            while (res.next()) {
+                rooms.add(getData(res));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return rooms;
     }
 }

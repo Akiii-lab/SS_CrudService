@@ -85,9 +85,9 @@ public class ServiceOfRoomDao implements DaoBase<ServiceOfRoom> {
         return false;
     }
 
-    public ServiceOfRoom findByName(String email) {
+    public ServiceOfRoom findByName(String name) {
         try {
-            ResultSet res = new DaoUtils().getByStringColumn(databaseConfig, tableName, "name", email);
+            ResultSet res = new DaoUtils().getByStringColumn(databaseConfig, tableName, "name", name);
             if (res.next()) {
                 return getData(res);
             }

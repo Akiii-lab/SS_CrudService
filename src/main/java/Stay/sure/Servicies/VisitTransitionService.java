@@ -1,5 +1,8 @@
 package Stay.sure.Servicies;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,5 +51,27 @@ public class VisitTransitionService {
         return visitTransitionDao.delete(id);
     }
 
-    //cambiar dao para id_visit, id_visitstate y date
+    public ArrayList<VisitTransitionDTO> findById_visit(Long id_visit) {
+        ArrayList<VisitTransition> visitTransitions = visitTransitionDao.findByIdVisit(id_visit);
+        if(visitTransitions != null) {
+            return new ArrayList<VisitTransitionDTO>(visitTransitions.stream().map(VisitTransitionMapper::mapToDTO).toList());
+        }
+        return null;
+    }
+
+    public ArrayList<VisitTransitionDTO> findById_visitState(Long id_visitState) {
+        ArrayList<VisitTransition> visitTransitions = visitTransitionDao.findByIdVisitState(id_visitState);
+        if(visitTransitions != null) {
+            return new ArrayList<VisitTransitionDTO>(visitTransitions.stream().map(VisitTransitionMapper::mapToDTO).toList());
+        }
+        return null;
+    }
+
+    public ArrayList<VisitTransitionDTO> findByDate(Date date) {
+        ArrayList<VisitTransition> visitTransitions = visitTransitionDao.findByDate(date);
+        if(visitTransitions != null) {
+            return new ArrayList<VisitTransitionDTO>(visitTransitions.stream().map(VisitTransitionMapper::mapToDTO).toList());
+        }
+        return null;
+    }
 }

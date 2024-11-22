@@ -7,6 +7,7 @@ import Stay.sure.Entitys.Factories.VisitTransitionFactory;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -100,6 +101,47 @@ public class VisitTransitionDao implements DaoBase<VisitTransition> {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    public ArrayList<VisitTransition> findByIdVisit(Long id) {
+        try {
+            ArrayList<VisitTransition> data = new ArrayList<>();
+            ResultSet res = new DaoUtils().getByLongColumn(databaseConfig, tableName, "id_visit", id);
+            while (res.next()) {
+                data.add(getData(res));
+            }
+            return data;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public ArrayList<VisitTransition> findByIdVisitState(Long id) {
+        try {
+            ArrayList<VisitTransition> data = new ArrayList<>();
+            ResultSet res = new DaoUtils().getByLongColumn(databaseConfig, tableName, "id_visitstate", id);
+            while (res.next()) {
+                data.add(getData(res));
+            }
+            return data;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public ArrayList<VisitTransition> findByDate(Date date) {
+        ArrayList<VisitTransition> rooms = new ArrayList<VisitTransition>();
+        try {
+            ResultSet res = new DaoUtils().getByDateColumn(databaseConfig, tableName, "date", date);
+            while (res.next()) {
+                rooms.add(getData(res));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return rooms;
     }
 
     @Override

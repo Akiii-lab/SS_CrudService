@@ -1,5 +1,7 @@
 package Stay.sure.Servicies;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import Stay.sure.Entitys.Room;
@@ -11,14 +13,14 @@ public class RoomService {
 
     @Autowired
     private RoomDao roomDao;
-    
-    public RoomService(RoomDao roomDao){
+
+    public RoomService(RoomDao roomDao) {
         this.roomDao = roomDao;
     }
 
     public RoomDTO findById(Long id) {
         Room room = roomDao.findById(id);
-        if(room != null) {
+        if (room != null) {
             return RoomMapper.mapToDTO(room);
         }
         return null;
@@ -27,7 +29,7 @@ public class RoomService {
     public RoomDTO save(RoomDTO room) {
         Room newRoom = RoomMapper.mapToEntity(room);
         Room saveRoom = roomDao.save(newRoom);
-        if(saveRoom != null) {
+        if (saveRoom != null) {
             return RoomMapper.mapToDTO(saveRoom);
         }
         return null;
@@ -36,7 +38,7 @@ public class RoomService {
     public RoomDTO update(RoomDTO room) {
         Room newRoom = RoomMapper.mapToEntity(room);
         Room saveRoom = roomDao.update(newRoom);
-        if(saveRoom != null) {
+        if (saveRoom != null) {
             return RoomMapper.mapToDTO(saveRoom);
         }
         return null;
@@ -46,6 +48,28 @@ public class RoomService {
         return delete(id);
     }
 
-    //cambiar dao para buscar por lugar tamañp e id_lessee
+    public RoomDTO findByIdLesse(Long id_lesse) {
+        Room room = roomDao.findByIdLesse(id_lesse);
+        if (room != null) {
+            return RoomMapper.mapToDTO(room);
+        }
+        return null;
+    }
+
+    public RoomDTO findByLugar(String lugar) {
+        Room room = roomDao.findByLugar(lugar);
+        if (room != null) {
+            return RoomMapper.mapToDTO(room);
+        }
+        return null;
+    }
+
+    public ArrayList<RoomDTO> findByTamanio(Integer tamanio) {
+        ArrayList<Room> rooms = roomDao.findByTamanio(tamanio);
+        if (rooms != null) {
+            return new ArrayList<RoomDTO>(rooms.stream().map(RoomMapper::mapToDTO).toList());
+        }
+        return null;
+    }
 
 }

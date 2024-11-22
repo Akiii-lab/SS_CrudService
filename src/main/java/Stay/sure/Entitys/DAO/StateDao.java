@@ -85,9 +85,9 @@ public class StateDao implements DaoBase<State> {
         return false;
     }
 
-    public State findByName(String email) {
+    public State findByName(String name) {
         try {
-            ResultSet res = new DaoUtils().getByStringColumn(databaseConfig, tableName, "state", email);
+            ResultSet res = new DaoUtils().getByStringColumn(databaseConfig, tableName, "state", name);
             if (res.next()) {
                 return getData(res);
             }

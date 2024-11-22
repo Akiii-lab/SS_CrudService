@@ -3,6 +3,7 @@ package Stay.sure.Entitys.DAO;
 import Stay.sure.DataBase.DatabaseConfig;
 import Stay.sure.DataBase.QueryParam;
 import java.util.ArrayList;
+import java.util.Date;
 import java.sql.ResultSet;
 
 public class DaoUtils {
@@ -65,5 +66,30 @@ public class DaoUtils {
         return databaseConfig
                 .executeQuery("SELECT * FROM " + tableName + " WHERE " + column_name + " = ?",
                         new QueryParam("long", search));
+    }
+
+    public ResultSet getByIntColumn(DatabaseConfig databaseConfig, String tableName, String column_name,
+            Integer search) throws Exception {
+        return databaseConfig
+                .executeQuery("SELECT * FROM " + tableName + " WHERE " + column_name + " = ?",
+                        new QueryParam("int", search));
+    }
+
+    public ResultSet getByDateColumn(DatabaseConfig databaseConfig, String tableName, String column_name,
+            Date search) throws Exception {
+        return databaseConfig
+                .executeQuery("SELECT * FROM " + tableName + " WHERE " + column_name + " = ?",
+                        new QueryParam("date", search));
+    }
+
+    public ResultSet getAll(DatabaseConfig databaseConfig, String tableName) throws Exception {
+        return databaseConfig.executeQuery("SELECT * FROM " + tableName);
+    }
+
+    public ResultSet getByDateRange(DatabaseConfig databaseConfig, String tableName, String column_name,
+            Date rangeFrom, Date rangeTo) throws Exception {
+        return databaseConfig
+                .executeQuery("SELECT * FROM " + tableName + " WHERE " + column_name + " >= ? AND " + column_name
+                        + " <= ?", new QueryParam("date", rangeFrom), new QueryParam("date", rangeTo));
     }
 }

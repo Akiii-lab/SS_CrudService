@@ -87,16 +87,30 @@ public class ServicesOfRoomDao implements DaoBase<ServicesOfRoom> {
         return false;
     }
 
-    public ServicesOfRoom findByEmail(String email) {
+    public ArrayList<ServicesOfRoom> findByIdRoom(Long id) {
+        ArrayList<ServicesOfRoom> servicesOfRooms = new ArrayList<>();
         try {
-            ResultSet res = new DaoUtils().getByStringColumn(databaseConfig, tableName, "email", email);
-            if (res.next()) {
-                return getData(res);
+            ResultSet res = new DaoUtils().getByLongColumn(databaseConfig, tableName, "id_room", id);
+            while (res.next()) {
+                servicesOfRooms.add(getData(res));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return null;
+        return servicesOfRooms;
+    }
+
+    public ArrayList<ServicesOfRoom> findByIDService(Long id) {
+        ArrayList<ServicesOfRoom> servicesOfRooms = new ArrayList<>();
+        try {
+            ResultSet res = new DaoUtils().getByLongColumn(databaseConfig, tableName, "id_service", id);
+            while (res.next()) {
+                servicesOfRooms.add(getData(res));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return servicesOfRooms;
     }
 
     @Override

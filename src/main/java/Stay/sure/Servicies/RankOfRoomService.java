@@ -1,5 +1,7 @@
 package Stay.sure.Servicies;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +48,32 @@ public class RankOfRoomService {
         return null;
     }
 
-    //hacer dao para buscar por id_room, id_rank y idChecker
+    public ArrayList<RankOfRoomDTO> findByIds(Long id_room, Long id_checker, Long id_rank) {
+        ArrayList<RankOfRoom> res = rankOfRoomDao.findByIds(id_room, id_checker, id_rank);
+        if (res != null)
+            return new ArrayList<RankOfRoomDTO>(res.stream().map(RankOfRoomMappers::mapToDTO).toList());
+        return null;
+    }
+
+    public ArrayList<RankOfRoomDTO> findByIdRoom(Long id_room) {
+        ArrayList<RankOfRoom> res = rankOfRoomDao.findByIdRoom(id_room);
+        if (res != null)
+            return new ArrayList<RankOfRoomDTO>(res.stream().map(RankOfRoomMappers::mapToDTO).toList());
+        return null;
+    }
+
+    public ArrayList<RankOfRoomDTO> findByIdChecker(Long id_checker) {
+        ArrayList<RankOfRoom> res = rankOfRoomDao.findByIdChecker(id_checker);
+        if (res != null)
+            return new ArrayList<RankOfRoomDTO>(res.stream().map(RankOfRoomMappers::mapToDTO).toList());
+        return null;
+    }
+
+    public ArrayList<RankOfRoomDTO> findByIdRank(Long id_rank) {
+        ArrayList<RankOfRoom> res = rankOfRoomDao.findByIdRank(id_rank);
+        if (res != null)
+            return new ArrayList<RankOfRoomDTO>(res.stream().map(RankOfRoomMappers::mapToDTO).toList());
+        return null;
+    }
 
 }

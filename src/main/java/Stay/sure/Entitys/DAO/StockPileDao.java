@@ -7,6 +7,7 @@ import Stay.sure.Entitys.Factories.StockPileFactory;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -112,5 +113,45 @@ public class StockPileDao implements DaoBase<StockPile> {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    public ArrayList<StockPile> findByIdRoom(Long id) {
+        ArrayList<StockPile> rooms = new ArrayList<StockPile>();
+        try {
+            ResultSet res = new DaoUtils().getByLongColumn(databaseConfig, tableName, "id_room", id);
+            while (res.next()) {
+                rooms.add(getData(res));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return rooms;
+    }
+
+    public ArrayList<StockPile> findByUser(Long id) {
+        ArrayList<StockPile> rooms = new ArrayList<StockPile>();
+        try {
+            ResultSet res = new DaoUtils().getByLongColumn(databaseConfig, tableName, "id_user", id);
+            while (res.next()) {
+                rooms.add(getData(res));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return rooms;
+    }
+
+    // findByDate
+    public ArrayList<StockPile> findByDate(Date date) {
+        ArrayList<StockPile> rooms = new ArrayList<StockPile>();
+        try {
+            ResultSet res = new DaoUtils().getByDateColumn(databaseConfig, tableName, "date_stockpile", date);
+            while (res.next()) {
+                rooms.add(getData(res));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return rooms;
     }
 }

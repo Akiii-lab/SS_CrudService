@@ -100,6 +100,31 @@ public class RoomDao implements DaoBase<Room> {
         return null;
     }
 
+    public Room findByLugar(String lugar) {
+        try {
+            ResultSet res = new DaoUtils().getByStringColumn(databaseConfig, tableName, "lugar", lugar);
+            if (res.next()) {
+                return getData(res);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public ArrayList<Room> findByTamanio(Integer tamanio) {
+        ArrayList<Room> rooms = new ArrayList<Room>();
+        try {
+            ResultSet res = new DaoUtils().getByIntColumn(databaseConfig, tableName, "tamano", tamanio);
+            while (res.next()) {
+                rooms.add(getData(res));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return rooms;
+    }
+
     @Override
     public Room findById(Long id) {
         try {

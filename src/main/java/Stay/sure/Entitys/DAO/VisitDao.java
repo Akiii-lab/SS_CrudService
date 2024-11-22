@@ -112,4 +112,30 @@ public class VisitDao implements DaoBase<Visit> {
         }
         return null;
     }
+
+    public ArrayList<Visit> findByChecker(Long id) {
+        ArrayList<Visit> rooms = new ArrayList<Visit>();
+        try {
+            ResultSet res = new DaoUtils().getByLongColumn(databaseConfig, tableName, "id_checker", id);
+            while (res.next()) {
+                rooms.add(getData(res));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return rooms;
+    }
+
+    public ArrayList<Visit> findByRoom(Long id) {
+        ArrayList<Visit> rooms = new ArrayList<Visit>();
+        try {
+            ResultSet res = new DaoUtils().getByLongColumn(databaseConfig, tableName, "id_room", id);
+            while (res.next()) {
+                rooms.add(getData(res));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return rooms;
+    }
 }

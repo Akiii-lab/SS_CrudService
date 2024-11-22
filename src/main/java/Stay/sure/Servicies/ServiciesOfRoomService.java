@@ -1,5 +1,7 @@
 package Stay.sure.Servicies;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import Stay.sure.Entitys.ServicesOfRoom;
@@ -40,5 +42,16 @@ public class ServiciesOfRoomService {
         return servicesOfRoomDao.delete(id);
     }
 
-    //falta service por id room y service
+
+    public ArrayList<ServicesOfRoomDTO> findByIdRoom(Long id) {
+        ArrayList<ServicesOfRoom> res = servicesOfRoomDao.findByIdRoom(id);
+        if(res != null) return new ArrayList<ServicesOfRoomDTO>(res.stream().map(ServiciesOfRoomMapper::mapToDTO).toList());
+        return null;
+    }
+
+    public ArrayList<ServicesOfRoomDTO> findByIDService(Long id) {
+        ArrayList<ServicesOfRoom> res = servicesOfRoomDao.findByIDService(id);
+        if(res != null) return new ArrayList<ServicesOfRoomDTO>(res.stream().map(ServiciesOfRoomMapper::mapToDTO).toList());
+        return null;
+    }
 }
